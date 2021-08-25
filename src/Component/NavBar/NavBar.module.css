@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: brown;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.subHeader {
+}
+
+.header h1 {
+}
+
+.carte {
+  background-color: rgb(120, 49, 47);
+  border: 1px solid darkred;
+  border-radius: 25px;
+  padding: 15px 70px;
+}
+.carte i {
+  margin-right: 14px;
+}
+.carte h6 {
+  display: inline;
+}
+.shopping {
+}
+.numberOfShops {
+  background-color: brown;
+  border: 2px solid brown;
+  display: inline;
+  border-radius: 30px;
+  margin-left: 15px;
+}

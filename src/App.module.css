@@ -1,0 +1,29 @@
+.cover {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("./image/image.jpg");
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.banner {
+  background-color: rgb(36, 37, 38);
+  width: 40%;
+  border-radius: 10px;
+  color: white;
+  margin: 0 auto;
+  padding: 25px;
+  font-size: 13px;
+  line-height: 25px;
+  margin-top: 25px;
+}
+.banner h2 {
+  text-align: center;
+  padding: 15px;
+}
+.banner p {
+  text-align: center;
+}
