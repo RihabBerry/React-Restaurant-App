@@ -1,0 +1,25 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.item button {
+  border: 1px solid brown;
+  padding: 3px 17px;
+  margin: 3px;
+  border-radius: 5px;
+  background-color: transparent;
+}
+.item span {
+  font-size: 13px;
+}
+.span1 {
+  color: brown;
+  font-size: 13px;
+  font-style: bold;
+  margin-right: 50px;
+}
+.container {
+  border-bottom: 2px solid brown;
+  padding: 10px;
+}
