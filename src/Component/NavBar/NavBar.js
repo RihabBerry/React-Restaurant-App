@@ -8,7 +8,7 @@ const NavBar = (props) => {
       <div className={classes.carte}>
         <i class="fas fa-shopping-cart" onClick={props.showModalHandler}></i>
         <h6> Your Cart:</h6>
-        <div className={classes.numberOfShops}>0</div>
+        <div className={classes.numberOfShops}>{props.countOfItems}</div>
       </div>
     </div>
   );
