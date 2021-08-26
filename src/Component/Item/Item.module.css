@@ -21,6 +21,7 @@
   border-radius: 25px;
   color: white;
   padding: 5px 30px;
+  cursor: pointer;
 }
 .addItem input {
   display: inline-block;
