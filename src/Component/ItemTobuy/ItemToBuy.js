@@ -1,19 +1,22 @@
 import React from "react";
 import classes from "./ItemToBuy.module.css";
 
-const ItemToBuy = () => {
+const ItemToBuy = (props) => {
+  const addItemtoshoppingList = () => {
+    props.addItemToShopingList(props.item);
+  };
   return (
     <div className={classes.container}>
-      <h3>Sushi</h3>
+      <h3>{props.item.MealName}</h3>
 
       <div className={classes.item}>
         <div>
-          <span className={classes.span1}>$16.5</span>
-          <span>*2</span>
+          <span className={classes.span1}>${props.sum}</span>
+          <span>*{props.multiply}</span>
         </div>
         <div>
           <button>-</button>
-          <button>+</button>
+          <button onClick={addItemtoshoppingList}>+</button>
         </div>
       </div>
     </div>
