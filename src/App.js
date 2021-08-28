@@ -17,7 +17,10 @@ function App() {
   };
 
   const removeItemFromShoppingList = (item) => {
-    console.log("removed!!");
+    console.log("this is the item to remove", item);
+    let newList = shoppingList.filter((t) => t.id !== item.id);
+    console.log("removed!!", newList);
+    setShoppingList(newList);
   };
   return (
     <div>
@@ -42,6 +45,7 @@ function App() {
             showModal={showModal}
             showModalHandler={showModalHandler}
             addItemToShopingList={addItemToShopingList}
+            removeItemFromShoppingList={removeItemFromShoppingList}
           />
         )}
         <List addItemToShopingList={addItemToShopingList} />

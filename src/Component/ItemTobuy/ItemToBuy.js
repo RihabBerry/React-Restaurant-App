@@ -5,6 +5,11 @@ const ItemToBuy = (props) => {
   const addItemtoshoppingList = () => {
     props.addItemToShopingList(props.item);
   };
+
+  const removeItemFromShoppingList = () => {
+    props.removeItemFromShoppingList(props.item);
+  };
+
   return (
     <div className={classes.container}>
       <h3>{props.item.MealName}</h3>
@@ -15,7 +20,7 @@ const ItemToBuy = (props) => {
           <span>*{props.multiply}</span>
         </div>
         <div>
-          <button>-</button>
+          <button onClick={removeItemFromShoppingList}>-</button>
           <button onClick={addItemtoshoppingList}>+</button>
         </div>
       </div>

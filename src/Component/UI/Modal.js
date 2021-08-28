@@ -32,6 +32,7 @@ const Modal = (props) => {
         sum={sum}
         multiply={itemGrouped[item].length}
         addItemToShopingList={props.addItemToShopingList}
+        removeItemFromShoppingList={props.removeItemFromShoppingList}
       />
     );
   });
