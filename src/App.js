@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import classes from "./App.module.css";
 import NavBar from "./Component/NavBar/NavBar";
 import List from "./Component/List/List";
-import Modal from "./Component/UI/Modal";
+import Cart from "./Component/Cart/Cart";
+
+const ACTIONS = {
+  ADD_MEAL: "add-meal",
+  REMEOVE_MEAL: "remove-meal",
+};
+
+function reducer(shoppingList, action) {
+  switch (action.type) {
+    case ACTIONS.ADD_MEAL:
+      return shoppingList.concat(action.payload);
+    case ACTIONS.REMEOVE_MEAL:
+      return shoppingList.filter((t) => t.id !== action.payload.id);
+    default:
+      return shoppingList;
+  }
+}
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [shoppingList, setShoppingList] = useState([]);
-
+  const [state, dispatch] = useReducer(reducer, []);
   const showModalHandler = () => {
     setShowModal(!showModal);
   };
   const addItemToShopingList = (item) => {
     setShoppingList(shoppingList.concat(item));
-    console.log("this is your list", shoppingList);
   };
 
   const removeItemFromShoppingList = (item) => {
-    console.log("this is the item to remove", item);
     let newList = shoppingList.filter((t) => t.id !== item.id);
-    console.log("removed!!", newList);
     setShoppingList(newList);
   };
+
   return (
     <div>
       <NavBar
@@ -40,7 +54,7 @@ function App() {
           </p>
         </div>
         {showModal && (
-          <Modal
+          <Cart
             shoppingList={shoppingList}
             showModal={showModal}
             showModalHandler={showModalHandler}
