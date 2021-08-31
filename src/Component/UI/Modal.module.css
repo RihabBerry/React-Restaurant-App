@@ -17,25 +17,3 @@
   z-index: 10;
   background: rgba(0, 0, 0, 0.75);
 }
-.footer button {
-  float: right;
-  margin: 7px;
-  padding: 5px 15px;
-  border-radius: 25px;
-  border: 0.5px solid brown;
-}
-
-.btnOrder {
-  background-color: brown;
-  color: white;
-}
-.btnClose {
-  background-color: transparent;
-  color: brown;
-}
-.totalAmount {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 7px;
-}
