@@ -3,46 +3,27 @@ import classes from "./App.module.css";
 import NavBar from "./Component/NavBar/NavBar";
 import List from "./Component/List/List";
 import Cart from "./Component/Cart/Cart";
-
-const ACTIONS = {
-  ADD_MEAL: "add-meal",
-  REMEOVE_MEAL: "remove-meal",
-};
-
-function reducer(shoppingList, action) {
-  switch (action.type) {
-    case ACTIONS.ADD_MEAL:
-      return shoppingList.concat(action.payload);
-    case ACTIONS.REMEOVE_MEAL:
-      return shoppingList.filter((t) => t.id !== action.payload.id);
-    default:
-      return shoppingList;
-  }
-}
+import CartProvider from "./store/CartProvider";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [shoppingList, setShoppingList] = useState([]);
-  const [state, dispatch] = useReducer(reducer, []);
+  // const [shoppingList, setShoppingList] = useState([]);
+  // const [state, dispatch] = useReducer(reducer, []);
   const showModalHandler = () => {
     setShowModal(!showModal);
   };
-  const addItemToShopingList = (item) => {
-    setShoppingList(shoppingList.concat(item));
-  };
+  //const addItemToShopingList = (item) => {
+  //   setShoppingList(shoppingList.concat(item));
+  // };
 
-  const removeItemFromShoppingList = (item) => {
-    let newList = shoppingList.filter((t) => t.id !== item.id);
-    setShoppingList(newList);
-  };
-
+  // const removeItemFromShoppingList = (item) => {
+  //  let newList = shoppingList.filter((t) => t.id !== item.id);
+  //  setShoppingList(newList);
+  // };
+  //All the components and their children have access to the cart
   return (
-    <div>
-      <NavBar
-        showModal={showModal}
-        showModalHandler={showModalHandler}
-        countOfItems={shoppingList.length}
-      />
+    <CartProvider>
+      <NavBar showModal={showModal} showModalHandler={showModalHandler} />
       <section className={classes.cover}>
         <div className={classes.banner}>
           <h2> Delicous Food,Delivered to you </h2>
@@ -54,17 +35,11 @@ function App() {
           </p>
         </div>
         {showModal && (
-          <Cart
-            shoppingList={shoppingList}
-            showModal={showModal}
-            showModalHandler={showModalHandler}
-            addItemToShopingList={addItemToShopingList}
-            removeItemFromShoppingList={removeItemFromShoppingList}
-          />
+          <Cart showModal={showModal} showModalHandler={showModalHandler} />
         )}
-        <List addItemToShopingList={addItemToShopingList} />
+        <List />
       </section>
-    </div>
+    </CartProvider>
   );
 }
 

@@ -31,13 +31,7 @@ const List = (props) => {
     },
   ];
 
-  const items = list.map((item) => (
-    <Item
-      key={item.id}
-      addItemToShopingList={props.addItemToShopingList}
-      item={item}
-    />
-  ));
+  const items = list.map((item) => <Item key={item.id} item={item} />);
   return (
     <Fragment>
       <div className={classes.list}> {items}</div>
