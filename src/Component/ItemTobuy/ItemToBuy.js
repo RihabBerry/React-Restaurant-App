@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import CartContext from "../../store/cart-context";
 import classes from "./ItemToBuy.module.css";
 
 const ItemToBuy = (props) => {
+  const cartCtx = useContext(CartContext);
   const addItemtoshoppingList = () => {
-    props.addItemToShopingList(props.item);
+    cartCtx.addItem({
+      id: props.item.id,
+      MealName: props.item.MealName,
+      amount: 1,
+      Price: props.item.Price,
+    });
   };
 
   const removeItemFromShoppingList = () => {
-    props.removeItemFromShoppingList(props.item);
+    console.log("item to rmove", props.item);
+    cartCtx.removeItem(props.item);
   };
 
   return (
