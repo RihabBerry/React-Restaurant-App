@@ -1,8 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import Modal from "../UI/Modal";
 import ItemToBuy from "../ItemTobuy/ItemToBuy";
 import classes from "./Cart.module.css";
+import CartContext from "../../store/cart-context";
 const Cart = (props) => {
+  const cartCtx = useContext(CartContext);
   const groupedBy = (array, key) => {
     return array.reduce((result, currentValue) => {
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
@@ -12,23 +14,23 @@ const Cart = (props) => {
     }, {});
   };
 
-  var totalPrice = props.shoppingList.reduce(function (prev, cur) {
-    return prev + cur.Price;
-  }, 0);
+  console.log("this is isthe shopoinlIST", cartCtx.shoppingList);
 
-  let itemGrouped = groupedBy(props.shoppingList, "MealName");
+  let itemGrouped = groupedBy(cartCtx.shoppingList, "MealName");
 
+  let totalPrice;
   const itemsToBuy = Object.keys(itemGrouped).map((item) => {
-    let sum = (itemGrouped[item][0].Price * itemGrouped[item].length).toFixed(
-      2
-    );
-
+    const multiply = itemGrouped[item].reduce(function (prev, cur) {
+      return prev + cur.amount;
+    }, 0);
+    let sum = (itemGrouped[item][0].Price * multiply).toFixed(2);
+    totalPrice = +sum;
     return (
       <ItemToBuy
         key={itemGrouped[item][0].id}
         item={itemGrouped[item][0]}
         sum={sum}
-        multiply={itemGrouped[item].length}
+        multiply={multiply}
         addItemToShopingList={props.addItemToShopingList}
         removeItemFromShoppingList={props.removeItemFromShoppingList}
       />
@@ -42,7 +44,7 @@ const Cart = (props) => {
         <footer className={classes.footer}>
           <div className={classes.totalAmount}>
             <h3>Total Amount </h3>
-            <h3> ${totalPrice.toFixed(2)}</h3>
+            <h3> ${totalPrice}</h3>
           </div>
           <button className={classes.btnOrder}>Order</button>
           <button className={classes.btnClose} onClick={props.showModalHandler}>
