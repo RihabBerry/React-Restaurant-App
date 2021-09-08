@@ -31,7 +31,17 @@ const List = (props) => {
   const items = list.map((item) => <Item key={item.id} item={item} />);
   return (
     <Fragment>
-      <div className={classes.list}> {items}</div>
+      {!isLoading && items.length === 0 && (
+        <Card>
+          <p>No Found ...</p>
+        </Card>
+      )}
+      {!isLoading && items.length > 0 && <Card> {items}</Card>}
+      {isLoading && (
+        <Card>
+          <p>Is Loading ...</p>
+        </Card>
+      )}
     </Fragment>
   );
 };
