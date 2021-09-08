@@ -1,35 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useCallback, useState } from "react";
 import classes from "./List.module.css";
 import Item from "../Item/Item";
-import { v4 as uuidv4 } from "uuid";
-
+import Card from "../UI/Card";
 const List = (props) => {
-  const list = [
-    {
-      id: uuidv4(),
-      MealName: "Sushi",
-      MealDescription: "Finest fish and Veggies",
-      Price: 22.99,
-    },
-    {
-      id: uuidv4(),
-      MealName: "Soupe",
-      MealDescription: "Finest fish and Veggies",
-      Price: 54.99,
-    },
-    {
-      id: uuidv4(),
-      MealName: "Mixed Grill",
-      MealDescription: "Finest fish and Veggies",
-      Price: 58.99,
-    },
-    {
-      id: uuidv4(),
-      MealName: "Salad",
-      MealDescription: "Finest fish and Veggies",
-      Price: 13.99,
-    },
-  ];
+  const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchInfo = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://react-movie-e18ec-default-rtdb.firebaseio.com/movies.json"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const data = await response.json();
+      setList(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("this is the error ", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchInfo();
+  }, [fetchInfo]);
 
   const items = list.map((item) => <Item key={item.id} item={item} />);
   return (
