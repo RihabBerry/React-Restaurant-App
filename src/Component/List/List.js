@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useCallback, useState } from "react";
-import classes from "./List.module.css";
 import Item from "../Item/Item";
 import Card from "../UI/Card";
 const List = (props) => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const fetchInfo = useCallback(async () => {
     try {
@@ -13,6 +13,7 @@ const List = (props) => {
         "https://react-movie-e18ec-default-rtdb.firebaseio.com/movies.json"
       );
       if (!response.ok) {
+        setError("Something went wrong!");
         throw new Error("Something went wrong!");
       }
 
@@ -20,6 +21,7 @@ const List = (props) => {
       setList(data);
       setIsLoading(false);
     } catch (error) {
+      setError(error.message);
       console.log("this is the error ", error);
     }
   }, []);
@@ -27,6 +29,14 @@ const List = (props) => {
   useEffect(() => {
     fetchInfo();
   }, [fetchInfo]);
+
+  if (error) {
+    return (
+      <Card>
+        <p style={{ color: "red" }}>{error}</p>
+      </Card>
+    );
+  }
 
   const items = list.map((item) => <Item key={item.id} item={item} />);
   return (

@@ -7,6 +7,11 @@ import CartProvider from "./store/CartProvider";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+
+
+
+
+  
   // const [shoppingList, setShoppingList] = useState([]);
   // const [state, dispatch] = useReducer(reducer, []);
   const showModalHandler = () => {
