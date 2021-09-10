@@ -1,0 +1,8 @@
+input {
+  display: block;
+  border-radius: 5px;
+  outline: none;
+  border-color: #ccc;
+  width: 100%;
+  padding: 5px;
+}
