@@ -7,7 +7,6 @@ const defaultCartState = {
 };
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    console.log("inside reducer", action.payload);
     const updatedtotalAmount =
       state.totalAmount + action.payload.Price * action.payload.amount;
 
@@ -59,7 +58,9 @@ const cartReducer = (state, action) => {
       totalAmount: updatedtotalAmount,
     };
   }
-
+  if (action.type === "CLEAR") {
+    return defaultCartState;
+  }
   return;
 };
 
@@ -68,7 +69,9 @@ const CartProvider = (props) => {
     cartReducer,
     defaultCartState
   );
-
+  const clearItemfromSHoppingList = () => {
+    dispatchCartAction({ type: "CLEAR" });
+  };
   const addItemToShopingList = (item) => {
     dispatchCartAction({ type: "ADD", payload: item });
   };
@@ -81,6 +84,7 @@ const CartProvider = (props) => {
     removeItem: removeItemFromShoppingList,
     addItem: addItemToShopingList,
     totalAmount: cartState.totalAmount,
+    clearItems: clearItemfromSHoppingList,
   };
 
   return (
