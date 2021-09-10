@@ -1,12 +1,18 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import ItemToBuy from "../ItemTobuy/ItemToBuy";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
+import Checkout from "./Checkout";
+import Card from "../UI/Card";
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
+  const [isDidSubmit, setIsDidSubmit] = useState(false);
+  const [isSubmitting, seIsSubmitting] = useState(false);
 
   const hasItem = cartCtx.shoppingList.length > 0;
+  const [showCheckout, setShowcheckout] = useState(false);
+  const [showOrder, setShowOrder] = useState(true);
   const groupedBy = (array, key) => {
     return array.reduce((result, currentValue) => {
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
@@ -16,8 +22,6 @@ const Cart = (props) => {
     }, {});
   };
 
-  console.log("this is isthe shopoinlIST", cartCtx.shoppingList);
-  console.log("this is updated totalAMount", cartCtx.totalAmount);
   let itemGrouped = groupedBy(cartCtx.shoppingList, "MealName");
 
   const itemsToBuy = Object.keys(itemGrouped).map((item) => {
@@ -37,20 +41,76 @@ const Cart = (props) => {
     );
   });
 
+  const onSubmit = async (order) => {
+    seIsSubmitting(true);
+    const response = await fetch(
+      "https://react-movie-e18ec-default-rtdb.firebaseio.com/order.json",
+      {
+        method: "POST",
+        body: JSON.stringify(order),
+        header: { "Content-Type": "application/json" },
+      }
+    );
+    console.log("it submitted with success");
+    const data = await response.json();
+    setIsDidSubmit(true);
+    seIsSubmitting(false);
+    cartCtx.clearItems();
+  };
+  const handleOrder = () => {
+    setShowcheckout(true);
+    setShowOrder(false);
+  };
+
+  const didSubmitContent = (
+    <Fragment>
+      <p>Order sent Successfully ! </p>
+      <button className={classes.btnClose} onClick={props.showModalHandler}>
+        Close
+      </button>
+    </Fragment>
+  );
+  const IsSubmittingContent = <p>Order is Sending ! </p>;
+
+  const contentModal = (
+    <Fragment>
+      <main> {itemsToBuy}</main>
+      <footer className={classes.footer}>
+        <div className={classes.totalAmount}>
+          <h3>Total Amount </h3>
+          <h3> ${cartCtx.totalAmount.toFixed(2)}</h3>
+        </div>
+        {showOrder && (
+          <div className={classes.btn}>
+            {hasItem && (
+              <button className={classes.btnOrder} onClick={handleOrder}>
+                Order
+              </button>
+            )}
+            <button
+              className={classes.btnClose}
+              onClick={props.showModalHandler}
+            >
+              Close
+            </button>
+          </div>
+        )}
+        {showCheckout && (
+          <Checkout
+            onSubmit={onSubmit}
+            showModalHandler={props.showModalHandler}
+          />
+        )}
+      </footer>
+    </Fragment>
+  );
+
   return (
     <Fragment>
       <Modal>
-        <main> {itemsToBuy}</main>
-        <footer className={classes.footer}>
-          <div className={classes.totalAmount}>
-            <h3>Total Amount </h3>
-            <h3> ${cartCtx.totalAmount.toFixed(2)}</h3>
-          </div>
-          {hasItem && <button className={classes.btnOrder}>Order</button>}
-          <button className={classes.btnClose} onClick={props.showModalHandler}>
-            Close
-          </button>
-        </footer>
+        {isDidSubmit && didSubmitContent}
+        {!isDidSubmit && !isSubmitting && contentModal}
+        {isSubmitting && IsSubmittingContent}
       </Modal>
     </Fragment>
   );
