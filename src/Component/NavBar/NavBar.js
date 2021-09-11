@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import CartContext from "../../store/cart-context";
 import classes from "./NavBar.module.css";
 
 const NavBar = (props) => {
-  const cartCtx = useContext(CartContext);
-  const numberOfCartItems = cartCtx.shoppingList.reduce(function (prev, cur) {
+  //const cartCtx = useContext(CartContext);
+  const shoppingList = useSelector((state) => state.shoppingList);
+  const numberOfCartItems = shoppingList.reduce(function (prev, cur) {
     return prev + cur.amount;
   }, 0);
 

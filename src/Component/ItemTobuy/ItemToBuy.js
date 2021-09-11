@@ -1,21 +1,33 @@
 import React, { useContext } from "react";
 import CartContext from "../../store/cart-context";
 import classes from "./ItemToBuy.module.css";
+import { useDispatch } from "react-redux";
 
 const ItemToBuy = (props) => {
   const cartCtx = useContext(CartContext);
+  const dispatch = useDispatch();
+
   const addItemtoshoppingList = () => {
-    cartCtx.addItem({
+    const item = {
       id: props.item.id,
       MealName: props.item.MealName,
       amount: 1,
       Price: props.item.Price,
-    });
+    };
+    dispatch({ type: "ADD", payload: item });
+
+    /* cartCtx.addItem({
+      id: props.item.id,
+      MealName: props.item.MealName,
+      amount: 1,
+      Price: props.item.Price,
+    }); */
   };
 
   const removeItemFromShoppingList = () => {
-    console.log("item to rmove", props.item);
-    cartCtx.removeItem(props.item);
+    console.log("item to remove", props.item);
+    dispatch({ type: "REMOVE", payload: props.item });
+    // cartCtx.removeItem(props.item);
   };
 
   return (

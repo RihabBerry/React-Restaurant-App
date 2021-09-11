@@ -51,6 +51,12 @@ const Checkout = (props) => {
   const isInvalidName = !isNameValid && isTouched;
   const isInvalidStreet = !isValidStreet && isTouched;
   const isInvalidCity = !isValidCity && isTouched;
+
+  const formIsValid = !isInvalidName && !isInvalidStreet && !isInvalidCity;
+
+  if (!formIsValid) {
+    return;
+  }
   return (
     <Fragment>
       <form onSubmit={onSubmitHandler}>

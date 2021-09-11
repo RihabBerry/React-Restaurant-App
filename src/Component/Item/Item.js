@@ -1,15 +1,25 @@
 import React, { useContext, useRef } from "react";
+import { useDispatch } from "react-redux";
 import CartContext from "../../store/cart-context";
 import classes from "./Item.module.css";
 const Item = (props) => {
+  const dispatch = useDispatch();
+
   const addItemtoshoppingList = () => {
     console.log("you logged here ");
-    cartCtx.addItem({
+    const item = {
       id: props.item.id,
       MealName: props.item.MealName,
       amount: +amountInputRef.current.value,
       Price: props.item.Price,
-    });
+    };
+    dispatch({ type: "ADD", payload: item });
+    /* cartCtx.addItem({
+      id: props.item.id,
+      MealName: props.item.MealName,
+      amount: +amountInputRef.current.value,
+      Price: props.item.Price,
+    }); */
   };
   const amountInputRef = useRef();
 

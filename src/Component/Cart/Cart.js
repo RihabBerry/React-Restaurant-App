@@ -4,13 +4,21 @@ import ItemToBuy from "../ItemTobuy/ItemToBuy";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import Checkout from "./Checkout";
-import Card from "../UI/Card";
+import { useSelector, useDispatch } from "react-redux";
+
 const Cart = (props) => {
+  const dispatch = useDispatch();
+  const shoppingList = useSelector((state) => state.shoppingList);
+  console.log("this is your state", shoppingList);
+  const totalAmount = useSelector((state) => state.totalAmount);
+  console.log("this is your amount", totalAmount);
   const cartCtx = useContext(CartContext);
+
   const [isDidSubmit, setIsDidSubmit] = useState(false);
   const [isSubmitting, seIsSubmitting] = useState(false);
 
-  const hasItem = cartCtx.shoppingList.length > 0;
+  const hasItem = shoppingList.length > 0;
+
   const [showCheckout, setShowcheckout] = useState(false);
   const [showOrder, setShowOrder] = useState(true);
   const groupedBy = (array, key) => {
@@ -22,7 +30,7 @@ const Cart = (props) => {
     }, {});
   };
 
-  let itemGrouped = groupedBy(cartCtx.shoppingList, "MealName");
+  let itemGrouped = groupedBy(shoppingList, "MealName");
 
   const itemsToBuy = Object.keys(itemGrouped).map((item) => {
     const multiply = itemGrouped[item].reduce(function (prev, cur) {
@@ -35,8 +43,8 @@ const Cart = (props) => {
         item={itemGrouped[item][0]}
         sum={sum}
         multiply={multiply}
-        addItemToShopingList={props.addItemToShopingList}
-        removeItemFromShoppingList={props.removeItemFromShoppingList}
+        //addItemToShopingList={props.addItemToShopingList}
+        //removeItemFromShoppingList={props.removeItemFromShoppingList}
       />
     );
   });
@@ -55,7 +63,8 @@ const Cart = (props) => {
     const data = await response.json();
     setIsDidSubmit(true);
     seIsSubmitting(false);
-    cartCtx.clearItems();
+    dispatch({ type: "CLEAR" });
+    //cartCtx.clearItems();
   };
   const handleOrder = () => {
     setShowcheckout(true);
@@ -78,7 +87,7 @@ const Cart = (props) => {
       <footer className={classes.footer}>
         <div className={classes.totalAmount}>
           <h3>Total Amount </h3>
-          <h3> ${cartCtx.totalAmount.toFixed(2)}</h3>
+          <h3> ${totalAmount.toFixed(2)}</h3>
         </div>
         {showOrder && (
           <div className={classes.btn}>
