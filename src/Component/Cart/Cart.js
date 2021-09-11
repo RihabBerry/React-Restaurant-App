@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import ItemToBuy from "../ItemTobuy/ItemToBuy";
 import classes from "./Cart.module.css";
-import CartContext from "../../store/cart-context";
+import CartContext from "../../context-store/cart-context";
 import Checkout from "./Checkout";
 import { useSelector, useDispatch } from "react-redux";
 

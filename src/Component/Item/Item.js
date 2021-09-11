@@ -1,12 +1,11 @@
 import React, { useContext, useRef } from "react";
 import { useDispatch } from "react-redux";
-import CartContext from "../../store/cart-context";
+import CartContext from "../../context-store/cart-context";
 import classes from "./Item.module.css";
 const Item = (props) => {
   const dispatch = useDispatch();
 
   const addItemtoshoppingList = () => {
-    console.log("you logged here ");
     const item = {
       id: props.item.id,
       MealName: props.item.MealName,

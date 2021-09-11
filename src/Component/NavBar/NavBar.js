@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import CartContext from "../../store/cart-context";
+import CartContext from "../../context-store/cart-context";
 import classes from "./NavBar.module.css";
 
 const NavBar = (props) => {

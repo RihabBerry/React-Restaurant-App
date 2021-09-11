@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CartContext from "../../store/cart-context";
+import CartContext from "../../context-store/cart-context";
 import classes from "./ItemToBuy.module.css";
 import { useDispatch } from "react-redux";
 

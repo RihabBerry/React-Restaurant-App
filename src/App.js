@@ -3,15 +3,11 @@ import classes from "./App.module.css";
 import NavBar from "./Component/NavBar/NavBar";
 import List from "./Component/List/List";
 import Cart from "./Component/Cart/Cart";
-import CartProvider from "./store/CartProvider";
+import CartProvider from "./context-store/CartProvider";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
 
-
-
-
-  
   // const [shoppingList, setShoppingList] = useState([]);
   // const [state, dispatch] = useReducer(reducer, []);
   const showModalHandler = () => {
