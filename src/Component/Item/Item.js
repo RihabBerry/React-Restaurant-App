@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { useDispatch } from "react-redux";
 import CartContext from "../../context-store/cart-context";
+import { mealsActions } from "../../redux-store/reducer-slice";
 import classes from "./Item.module.css";
 const Item = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Item = (props) => {
       amount: +amountInputRef.current.value,
       Price: props.item.Price,
     };
-    dispatch({ type: "ADD", payload: item });
+    dispatch(mealsActions.Add(item));
     /* cartCtx.addItem({
       id: props.item.id,
       MealName: props.item.MealName,
@@ -22,7 +23,7 @@ const Item = (props) => {
   };
   const amountInputRef = useRef();
 
-  const cartCtx = useContext(CartContext);
+  //const cartCtx = useContext(CartContext);
 
   const submitHandler = (event) => {
     event.preventDefault();

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import CartContext from "../../context-store/cart-context";
 import classes from "./ItemToBuy.module.css";
 import { useDispatch } from "react-redux";
+import { mealsActions } from "../../redux-store/reducer-slice";
 
 const ItemToBuy = (props) => {
   const cartCtx = useContext(CartContext);
@@ -14,7 +15,7 @@ const ItemToBuy = (props) => {
       amount: 1,
       Price: props.item.Price,
     };
-    dispatch({ type: "ADD", payload: item });
+    dispatch(mealsActions.Add(item));
 
     /* cartCtx.addItem({
       id: props.item.id,
@@ -26,7 +27,7 @@ const ItemToBuy = (props) => {
 
   const removeItemFromShoppingList = () => {
     console.log("item to remove", props.item);
-    dispatch({ type: "REMOVE", payload: props.item });
+    dispatch(mealsActions.Remove(props.item));
     // cartCtx.removeItem(props.item);
   };
 

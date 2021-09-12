@@ -4,6 +4,7 @@ import ItemToBuy from "../ItemTobuy/ItemToBuy";
 import classes from "./Cart.module.css";
 import CartContext from "../../context-store/cart-context";
 import Checkout from "./Checkout";
+import { mealsActions } from "../../redux-store/reducer-slice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Cart = (props) => {
@@ -12,7 +13,7 @@ const Cart = (props) => {
   console.log("this is your state", shoppingList);
   const totalAmount = useSelector((state) => state.totalAmount);
   console.log("this is your amount", totalAmount);
-  const cartCtx = useContext(CartContext);
+  //const cartCtx = useContext(CartContext);
 
   const [isDidSubmit, setIsDidSubmit] = useState(false);
   const [isSubmitting, seIsSubmitting] = useState(false);
@@ -63,7 +64,8 @@ const Cart = (props) => {
     const data = await response.json();
     setIsDidSubmit(true);
     seIsSubmitting(false);
-    dispatch({ type: "CLEAR" });
+    dispatch(mealsActions.Clear());
+    // dispatch({ type: "CLEAR" });
     //cartCtx.clearItems();
   };
   const handleOrder = () => {
